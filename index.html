@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html> 
+<html>
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -8,16 +8,38 @@
 
     <style>
      /* Add your css style here */
+
     </style>
   </head>
 
   <body>
     <!-- Add your site or application content here -->
     <p>Hello world! This is HTML5 Boilerplate.</p>
+    <img src="https://placekitten.com/g/200/300" />
+    <p id="joke"></p>
 
+    <br>
+    <br>
+
+    <button type="button" onclick="showJoke()">Tell me a joke!</button>
 
     <script>
-      // Add your javascript code here
+      function showJoke() {
+        var Http = new XMLHttpRequest();
+        var url='http://api.icndb.com/jokes/random';
+        Http.open("GET", url);
+        Http.responseType = 'json';
+        Http.send();
+
+        Http.onload = (e) => {
+          console.log(e.target.response);
+          var response = e.target.response;
+          if (response.type == "success") {
+              document.getElementById('joke').innerHTML = response.value.joke;
+          }
+        }
+
+      }
     </script>
 
   </body>
